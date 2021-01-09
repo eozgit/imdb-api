@@ -1,13 +1,18 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Movie } from './entity/movie';
+import { Movie, Actor } from './entity';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get()
-  async getHello(): Promise<Movie> {
-    return await this.appService.getHello();
+  @Get('/movie')
+  async getMovie(): Promise<Movie> {
+    return await this.appService.getMovie();
+  }
+
+  @Get('/actor')
+  async getActor(): Promise<Actor> {
+    return await this.appService.getActor();
   }
 }

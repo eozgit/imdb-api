@@ -3,17 +3,17 @@ import { Column, Entity, ObjectID, ObjectIdColumn } from "typeorm";
 @Entity("movies")
 export class Movie {
 
-    @ObjectIdColumn()
-    _id: ObjectID;
+    @ObjectIdColumn({ name: '_id' })
+    id: ObjectID;
 
-    @Column()
-    tconst: string;
+    @Column({ name: 'tconst' })
+    tid: string;
 
-    @Column()
-    titleType: string;
+    @Column({ name: 'titleType' })
+    type: string;
 
-    @Column()
-    primaryTitle: string;
+    @Column({ name: 'primaryTitle' })
+    title: string;
 
     @Column()
     originalTitle: string;
@@ -21,8 +21,8 @@ export class Movie {
     @Column()
     isAdult: number;
 
-    @Column()
-    startYear: number;
+    @Column({ name: 'startYear' })
+    year: number;
 
     @Column()
     endYear: string;

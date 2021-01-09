@@ -119,5 +119,5 @@ dist
 !.vscode/launch.json
 !.vscode/extensions.json
 
-dataset/*.gz
-dataset/*.tsv
+setup/*.gz
+setup/*.tsv

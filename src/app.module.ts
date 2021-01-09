@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Movie, Actor } from './entity';
+import { Movie, Actor, ActorMovie } from './entity';
 
 @Module({
   imports: [
@@ -12,9 +12,9 @@ import { Movie, Actor } from './entity';
       database: "imdb",
       synchronize: false,
       logging: false,
-      entities: [Movie, Actor],
+      entities: [Movie, Actor, ActorMovie],
     }),
-    TypeOrmModule.forFeature([Movie, Actor])
+    TypeOrmModule.forFeature([Movie, Actor, ActorMovie])
   ],
   controllers: [AppController],
   providers: [AppService]

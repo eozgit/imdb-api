@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Movie, Actor, ActorMovie, Rating } from './entity';
+import { Movie, Actor, ActorMovie } from './entity';
 
 @Controller()
 export class AppController {
@@ -19,10 +19,5 @@ export class AppController {
   @Get('/actormovie')
   async getActorMovie(): Promise<ActorMovie> {
     return await this.appService.getActorMovie();
-  }
-
-  @Get('/rating')
-  async getRating(): Promise<Rating> {
-    return await this.appService.getRating();
   }
 }

@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Movie, Actor, ActorMovie, Rating } from './entity';
+import { Movie, Actor, ActorMovie } from './entity';
+import { Rating } from './ratings/entities/rating.entity';
 import { RatingsModule } from './ratings/ratings.module';
 
 @Module({
@@ -16,7 +17,7 @@ import { RatingsModule } from './ratings/ratings.module';
       entities: [Movie, Actor, ActorMovie, Rating],
       useUnifiedTopology: true
     }),
-    TypeOrmModule.forFeature([Movie, Actor, ActorMovie, Rating]),
+    TypeOrmModule.forFeature([Movie, Actor, ActorMovie]),
     RatingsModule
   ],
   controllers: [AppController],

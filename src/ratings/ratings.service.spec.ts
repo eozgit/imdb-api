@@ -4,6 +4,21 @@ import { ObjectId } from 'mongodb';
 import { Rating } from './entities/rating.entity';
 import { RatingsService } from './ratings.service';
 
+export const MockRatingRepository = {
+  findOne: jest.fn(() => ({
+    _id: new ObjectId("5ff8c968ed3c3d8560f7b12c"),
+    tconst: "tt0000005",
+    averageRating: 6.2,
+    numVotes: 2188
+  })),
+  save: jest.fn(() => ([{
+    _id: new ObjectId("5ff8c968ed3c3d8560f7b12c"),
+    tconst: "tt0000005",
+    averageRating: 6.3,
+    numVotes: 2189
+  }]))
+};
+
 describe('RatingsService', () => {
   let service: RatingsService;
 
@@ -12,20 +27,7 @@ describe('RatingsService', () => {
       providers: [RatingsService,
         {
           provide: getRepositoryToken(Rating),
-          useFactory: jest.fn(() => ({
-            findOne: jest.fn(() => ({
-              _id: new ObjectId("5ff8c968ed3c3d8560f7b12c"),
-              tconst: "tt0000005",
-              averageRating: 6.2,
-              numVotes: 2188
-            })),
-            save: jest.fn(() => ([{
-              _id: new ObjectId("5ff8c968ed3c3d8560f7b12c"),
-              tconst: "tt0000005",
-              averageRating: 6.3,
-              numVotes: 2189
-            }]))
-          })),
+          useValue: MockRatingRepository,
         }],
     }).compile();
 

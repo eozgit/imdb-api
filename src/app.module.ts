@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { Movie, Actor, ActorMovie } from './entity';
 import { Rating } from './ratings/entities/rating.entity';
 import { RatingsModule } from './ratings/ratings.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { RatingsModule } from './ratings/ratings.module';
       useUnifiedTopology: true
     }),
     TypeOrmModule.forFeature([Movie, Actor, ActorMovie]),
-    RatingsModule
+    RatingsModule,
+    MoviesModule
   ],
   controllers: [AppController],
   providers: [AppService]

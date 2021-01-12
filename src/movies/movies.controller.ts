@@ -17,18 +17,18 @@ export class MoviesController {
     return this.moviesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.moviesService.findOne(+id);
+  @Get(':tconst')
+  findOne(@Param('tconst') tconst: string) {
+    return this.moviesService.findOne(tconst);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
-    return this.moviesService.update(+id, updateMovieDto);
+  @Put(':tconst')
+  update(@Param('tconst') tconst: string, @Body() updateMovieDto: UpdateMovieDto) {
+    return this.moviesService.update(tconst, updateMovieDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.moviesService.remove(+id);
+  @Delete(':tconst')
+  remove(@Param('tconst') tconst: string) {
+    return this.moviesService.remove(tconst);
   }
 }

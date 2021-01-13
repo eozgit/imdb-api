@@ -1,7 +1,39 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { ObjectId } from 'mongodb';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
+
+export const getMockMovie = () => ({
+  _id: new ObjectId('5ff8ca0d500da388352dfc99'),
+  tconst: 'tt0000007',
+  titleType: 'short',
+  primaryTitle: 'Corbett and Courtney Before the Kinetograph',
+  originalTitle: 'Corbett and Courtney Before the Kinetograph',
+  isAdult: 0,
+  startYear: 1894,
+  endYear: '\\N',
+  runtimeMinutes: 1,
+  genres: 'Short,Sport'
+});
+
+export const getMockUpdatedMovie = () => ({
+  _id: new ObjectId('5ff8ca0d500da388352dfc99'),
+  tconst: 'tt0000007',
+  titleType: 'short',
+  primaryTitle: 'Corbett and Courtney Before the Kinetograph',
+  originalTitle: 'Corbett and Courtney Before the Kinetograph',
+  isAdult: 0,
+  startYear: 1894,
+  endYear: '\\N',
+  runtimeMinutes: 2,
+  genres: 'Short,Sport'
+});
+
+export const MockMovieRepository = {
+  findOne: jest.fn(() => getMockMovie()),
+  save: jest.fn(() => ([getMockUpdatedMovie()]))
+};
 
 describe('MoviesService', () => {
   let service: MoviesService;
@@ -11,14 +43,22 @@ describe('MoviesService', () => {
       providers: [MoviesService,
         {
           provide: getRepositoryToken(Movie),
-          useValue: {},
+          useValue: MockMovieRepository,
         }],
     }).compile();
 
     service = module.get<MoviesService>(MoviesService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should retrieve and return a movie record when findOne is called', async () => {
+    const movie = await service.findOne('tt0000007');
+
+    expect(movie).toEqual(getMockMovie());
+  });
+
+  it('should update the average movie and return updated values when update is called', async () => {
+    const movie = await service.update('tt0000007', { runtimeMinutes: 2 });
+
+    expect(movie).toEqual(getMockUpdatedMovie());
   });
 });

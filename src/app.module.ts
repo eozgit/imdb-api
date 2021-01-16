@@ -7,6 +7,7 @@ import { Rating } from './ratings/entities/rating.entity';
 import { RatingsModule } from './ratings/ratings.module';
 import { MoviesModule } from './movies/movies.module';
 import { Movie } from './movies/entities/movie.entity';
+import { ActorsModule } from './actors/actors.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { Movie } from './movies/entities/movie.entity';
     }),
     TypeOrmModule.forFeature([Actor, ActorMovie]),
     RatingsModule,
-    MoviesModule
+    MoviesModule,
+    ActorsModule
   ],
   controllers: [AppController],
   providers: [AppService]

@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 import { ActorsService } from './actors.service';
 import { CreateActorDto } from './dto/create-actor.dto';
 import { UpdateActorDto } from './dto/update-actor.dto';
 
 @Controller('actors')
 export class ActorsController {
-  constructor(private readonly actorsService: ActorsService) {}
+  constructor(private readonly actorsService: ActorsService) { }
 
   @Post()
   create(@Body() createActorDto: CreateActorDto) {
@@ -13,22 +13,26 @@ export class ActorsController {
   }
 
   @Get()
-  findAll() {
-    return this.actorsService.findAll();
+  findAll(
+    @Query('page') page: number = 0,
+    @Query('name') name: string = '',
+    @Query('birthYear') birthYear: number = 0
+  ) {
+    return this.actorsService.findAll(page, name, birthYear);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.actorsService.findOne(+id);
+  @Get(':nconst')
+  findOne(@Param('nconst') nconst: string) {
+    return this.actorsService.findOne(nconst);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateActorDto: UpdateActorDto) {
-    return this.actorsService.update(+id, updateActorDto);
+  @Put(':nconst')
+  update(@Param('nconst') nconst: string, @Body() updateActorDto: UpdateActorDto) {
+    return this.actorsService.update(nconst, updateActorDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.actorsService.remove(+id);
+  @Delete(':nconst')
+  remove(@Param('nconst') nconst: string) {
+    return this.actorsService.remove(nconst);
   }
 }

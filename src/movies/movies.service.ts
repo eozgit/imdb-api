@@ -1,6 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository } from 'typeorm';
+import { FindManyOptions, MongoRepository } from 'typeorm';
+import { v4 } from 'uuid';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
@@ -12,19 +13,45 @@ export class MoviesService {
   ) { }
 
   async create(createMovieDto: CreateMovieDto) {
-    return await this.moviesRepository.insert(createMovieDto);
+    createMovieDto.tconst = v4();
+    return await this.moviesRepository.insertOne(createMovieDto);
   }
 
-  async findAll() {
-    return await this.moviesRepository.find();
+  async findAll(page: number, title: string, year: number, genre: string) {
+    const take = 10;
+
+    const options: FindManyOptions<Movie> = {
+      skip: page * take,
+      take
+    };
+
+    const where: any = {}
+
+    if (title) {
+      where.primaryTitle = {
+        $regex: new RegExp(`.*${title}.*`, 'i')
+      };
+    }
+
+    if (genre) {
+      where.genres = {
+        $regex: new RegExp(`.*${genre}.*`, 'i')
+      };
+    }
+
+    if (year) {
+      where.startYear = {
+        $eq: Number(year)
+      };
+    }
+
+    options.where = where;
+
+    return await this.moviesRepository.find(options);
   }
 
   async findOne(tconst: string) {
-    const record = await this.moviesRepository.findOne({ tconst });
-    if (!record) {
-      throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
-    }
-    return record;
+    return await this.moviesRepository.findOneOrFail({ tconst });
   }
 
   async update(tconst: string, updateMovieDto: UpdateMovieDto) {
@@ -37,6 +64,6 @@ export class MoviesService {
   }
 
   async remove(tconst: string) {
-    return await this.moviesRepository.deleteOne({ tconst });
+    await this.moviesRepository.deleteOne({ tconst });
   }
 }

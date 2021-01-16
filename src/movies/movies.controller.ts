@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+  constructor(private readonly moviesService: MoviesService) { }
 
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
@@ -13,8 +13,13 @@ export class MoviesController {
   }
 
   @Get()
-  findAll() {
-    return this.moviesService.findAll();
+  findAll(
+    @Query('page') page: number = 0,
+    @Query('title') title: string = '',
+    @Query('year') year: number = 0,
+    @Query('genre') genre: string = ''
+  ) {
+    return this.moviesService.findAll(page, title, year, genre);
   }
 
   @Get(':tconst')

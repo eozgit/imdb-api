@@ -1,4 +1,5 @@
 export class CreateMovieDto {
+    tconst: string;
     titleType: string;
     primaryTitle: string;
     originalTitle: string;

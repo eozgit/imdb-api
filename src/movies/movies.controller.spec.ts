@@ -21,7 +21,7 @@ describe('MoviesController', () => {
     controller = module.get<MoviesController>(MoviesController);
   });
 
-  it('should insert and return the movie when create is called', async () => {
+  it('should insert and return the movie record when create is called', async () => {
     const movie = await controller.create(getMockMovie());
 
     expect(movie).toEqual(getMockMovie());

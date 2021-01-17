@@ -47,13 +47,13 @@ describe('ActorsService', () => {
     service = module.get<ActorsService>(ActorsService);
   });
 
-  it('should insert and return the actor when create is called', async () => {
+  it('should insert and return the actor record when create is called', async () => {
     const actor = await service.create(getMockActor());
 
     expect(actor).toEqual(getMockActor());
   });
 
-  it('should retrieve and return matching actors when findAll is called', async () => {
+  it('should retrieve and return matching actor records when findAll is called', async () => {
     const actor = await service.findAll(0, 'Gary', 1901);
 
     expect(actor).toEqual([getMockActor()]);
@@ -66,7 +66,7 @@ describe('ActorsService', () => {
   });
 
   it('should update the profession and return updated values when update is called', async () => {
-    const actor = await service.update('tt0000007', { primaryProfession: 'Actor' });
+    const actor = await service.update('nm0000011', { primaryProfession: 'Actor' });
 
     expect(actor).toEqual(getMockUpdatedActor());
   });

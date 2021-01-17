@@ -53,7 +53,7 @@ describe('MoviesService', () => {
     service = module.get<MoviesService>(MoviesService);
   });
 
-  it('should insert and return the movie when create is called', async () => {
+  it('should insert and return the movie record when create is called', async () => {
     const movie = await service.create(getMockMovie());
 
     expect(movie).toEqual(getMockMovie());

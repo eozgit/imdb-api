@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-xdescribe('AppController', () => {
+describe('AppController', () => {
   let appController: AppController;
 
   beforeEach(async () => {
@@ -15,8 +15,8 @@ xdescribe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should pass', () => {
-      expect(0).toBe(0);
+    it('should be defined', () => {
+      expect(appController).toBeDefined();
     });
   });
 });

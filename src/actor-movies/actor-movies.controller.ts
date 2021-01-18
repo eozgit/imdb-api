@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 import { ActorMoviesService } from './actor-movies.service';
 import { CreateActorMovieDto } from './dto/create-actor-movie.dto';
 import { UpdateActorMovieDto } from './dto/update-actor-movie.dto';
 
 @Controller('actor-movies')
 export class ActorMoviesController {
-  constructor(private readonly actorMoviesService: ActorMoviesService) {}
+  constructor(private readonly actorMoviesService: ActorMoviesService) { }
 
   @Post()
   create(@Body() createActorMovieDto: CreateActorMovieDto) {
@@ -13,22 +13,27 @@ export class ActorMoviesController {
   }
 
   @Get()
-  findAll() {
-    return this.actorMoviesService.findAll();
+  findOne(
+    @Query('tconst') tconst: string,
+    @Query('nconst') nconst: string
+  ) {
+    return this.actorMoviesService.findOne(tconst, nconst);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.actorMoviesService.findOne(+id);
+  @Put()
+  update(
+    @Query('tconst') tconst: string,
+    @Query('nconst') nconst: string,
+    @Body() updateActorMovieDto: UpdateActorMovieDto
+  ) {
+    return this.actorMoviesService.update(tconst, nconst, updateActorMovieDto);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateActorMovieDto: UpdateActorMovieDto) {
-    return this.actorMoviesService.update(+id, updateActorMovieDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.actorMoviesService.remove(+id);
+  @Delete()
+  remove(
+    @Query('tconst') tconst: string,
+    @Query('nconst') nconst: string
+  ) {
+    return this.actorMoviesService.remove(tconst, nconst);
   }
 }

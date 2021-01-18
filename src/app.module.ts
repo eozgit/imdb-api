@@ -9,6 +9,7 @@ import { MoviesModule } from './movies/movies.module';
 import { Movie } from './movies/entities/movie.entity';
 import { ActorsModule } from './actors/actors.module';
 import { Actor } from './actors/entities/actor.entity';
+import { ActorMoviesModule } from './actor-movies/actor-movies.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { Actor } from './actors/entities/actor.entity';
     TypeOrmModule.forFeature([ActorMovie]),
     RatingsModule,
     MoviesModule,
-    ActorsModule
+    ActorsModule,
+    ActorMoviesModule
   ],
   controllers: [AppController],
   providers: [AppService]

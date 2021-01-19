@@ -14,9 +14,9 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should be defined', () => {
-      expect(appController).toBeDefined();
+  describe('echo method', () => {
+    it('should return the payload posted', () => {
+      expect(appController.echo({ text: 'test' })).toEqual('test');
     });
   });
 });

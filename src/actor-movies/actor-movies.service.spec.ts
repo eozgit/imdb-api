@@ -47,7 +47,27 @@ describe('ActorMoviesService', () => {
     service = module.get<ActorMoviesService>(ActorMoviesService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should insert and return the actor-movie record when create is called', async () => {
+    const actorMovie = await service.create(getMockActorMovie());
+
+    expect(actorMovie).toEqual(getMockActorMovie());
+  });
+
+  it('should retrieve and return an actor-movie record when findOne is called', async () => {
+    const actorMovie = await service.findOne('tt0000003', 'nm0721526');
+
+    expect(actorMovie).toEqual(getMockActorMovie());
+  });
+
+  it('should update the category and return updated values when update is called', async () => {
+    const actorMovie = await service.update('tt0000003', 'nm0721526', { category: 'actor' });
+
+    expect(actorMovie).toEqual(getMockUpdatedActorMovie());
+  });
+
+  it('should remove the actor-movie record and return null when remove is called', async () => {
+    const actorMovie = await service.remove('tt0000003', 'nm0721526');
+
+    expect(actorMovie).toEqual(undefined);
   });
 });

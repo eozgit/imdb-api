@@ -23,8 +23,11 @@ export class MoviesController {
   }
 
   @Get(':tconst')
-  findOne(@Param('tconst') tconst: string) {
-    return this.moviesService.findOne(tconst);
+  findOne(
+    @Param('tconst') tconst: string,
+    @Query('includeActors') includeActors: boolean = false
+  ) {
+    return this.moviesService.findOne(tconst, includeActors);
   }
 
   @Put(':tconst')

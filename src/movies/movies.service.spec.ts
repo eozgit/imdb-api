@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ObjectId } from 'mongodb';
+import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.service.spec';
+import { MockActorRepositoryProvider } from '../actors/actors.service.spec';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 
@@ -38,16 +40,22 @@ export const MockMovieRepository = {
   deleteOne: jest.fn(() => null)
 };
 
+export const MockMovieRepositoryProvider = {
+  provide: getRepositoryToken(Movie),
+  useValue: MockMovieRepository,
+};
+
 describe('MoviesService', () => {
   let service: MoviesService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MoviesService,
-        {
-          provide: getRepositoryToken(Movie),
-          useValue: MockMovieRepository,
-        }],
+      providers: [
+        MoviesService,
+        MockMovieRepositoryProvider,
+        MockActorMovieRepositoryProvider,
+        MockActorRepositoryProvider
+      ]
     }).compile();
 
     service = module.get<MoviesService>(MoviesService);

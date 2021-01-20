@@ -32,16 +32,20 @@ export const MockActorRepository = {
   deleteOne: jest.fn(() => null)
 };
 
+export const MockActorRepositoryProvider = {
+  provide: getRepositoryToken(Actor),
+  useValue: MockActorRepository,
+};
+
 describe('ActorsService', () => {
   let service: ActorsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ActorsService,
-        {
-          provide: getRepositoryToken(Actor),
-          useValue: MockActorRepository,
-        }],
+      providers: [
+        ActorsService,
+        MockActorRepositoryProvider
+      ],
     }).compile();
 
     service = module.get<ActorsService>(ActorsService);

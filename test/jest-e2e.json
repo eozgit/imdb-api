@@ -7,6 +7,6 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "modulePaths": [
-    "/home/node/imdb-api"
+    "<rootDir>"
   ]
 }

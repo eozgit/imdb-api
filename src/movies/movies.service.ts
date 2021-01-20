@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, MongoRepository } from 'typeorm';
 import { v4 } from 'uuid';
+import { ActorMovie } from '../actor-movies/entities/actor-movie.entity';
+import { Actor } from '../actors/entities/actor.entity';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
@@ -9,7 +11,9 @@ import { Movie } from './entities/movie.entity';
 @Injectable()
 export class MoviesService {
   constructor(
-    @InjectRepository(Movie) private moviesRepository: MongoRepository<Movie>
+    @InjectRepository(Movie) private moviesRepository: MongoRepository<Movie>,
+    @InjectRepository(Actor) private actorsRepository: MongoRepository<Actor>,
+    @InjectRepository(ActorMovie) private actorsMoviesRepository: MongoRepository<ActorMovie>
   ) { }
 
   async create(createMovieDto: CreateMovieDto) {
@@ -50,8 +54,24 @@ export class MoviesService {
     return await this.moviesRepository.find(options);
   }
 
-  async findOne(tconst: string) {
-    return await this.moviesRepository.findOneOrFail({ tconst });
+  async findOne(tconst: string, includeActors: boolean = false) {
+    const movie = await this.moviesRepository.findOneOrFail({ tconst });
+
+    if (includeActors) {
+      const actorMovies = await this.actorsMoviesRepository.find({ tconst });
+
+      const actors = await this.actorsRepository.find({
+        where: {
+          nconst: {
+            $in: actorMovies.map(r => r.nconst)
+          }
+        }
+      });
+
+      (movie as any).actors = actors;
+    }
+
+    return movie;
   }
 
   async update(tconst: string, updateMovieDto: UpdateMovieDto) {

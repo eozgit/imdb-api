@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ObjectId } from 'mongodb';
+import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.service.spec';
+import { MockMovieRepositoryProvider } from '../movies/movies.service.spec';
 import { ActorsService } from './actors.service';
 import { Actor } from './entities/actor.entity';
 
@@ -44,7 +46,9 @@ describe('ActorsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ActorsService,
-        MockActorRepositoryProvider
+        MockActorRepositoryProvider,
+        MockActorMovieRepositoryProvider,
+        MockMovieRepositoryProvider
       ],
     }).compile();
 

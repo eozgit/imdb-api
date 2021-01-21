@@ -22,8 +22,11 @@ export class ActorsController {
   }
 
   @Get(':nconst')
-  findOne(@Param('nconst') nconst: string) {
-    return this.actorsService.findOne(nconst);
+  findOne(
+    @Param('nconst') nconst: string,
+    @Query('includeMovies') includeMovies: boolean = false
+  ) {
+    return this.actorsService.findOne(nconst, includeMovies);
   }
 
   @Put(':nconst')

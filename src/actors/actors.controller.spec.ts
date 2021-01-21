@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.service.spec';
+import { MockMovieRepositoryProvider } from '../movies/movies.service.spec';
 import { ActorsController } from './actors.controller';
 import { ActorsService } from './actors.service';
-import { getMockActor, getMockUpdatedActor, MockActorRepository } from './actors.service.spec';
-import { Actor } from './entities/actor.entity';
+import { getMockActor, getMockUpdatedActor, MockActorRepositoryProvider } from './actors.service.spec';
 
 describe('ActorsController', () => {
   let controller: ActorsController;
@@ -11,11 +11,12 @@ describe('ActorsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ActorsController],
-      providers: [ActorsService,
-        {
-          provide: getRepositoryToken(Actor),
-          useValue: MockActorRepository,
-        }],
+      providers: [
+        ActorsService,
+        MockActorRepositoryProvider,
+        MockActorMovieRepositoryProvider,
+        MockMovieRepositoryProvider
+      ],
     }).compile();
 
     controller = module.get<ActorsController>(ActorsController);

@@ -6,31 +6,47 @@ import { MockActorRepositoryProvider } from '../actors/actors.service.spec';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 
-export const getMockMovie = () => ({
-  _id: new ObjectId('5ff8ca0d500da388352dfc99'),
-  tconst: 'tt0000007',
-  titleType: 'short',
-  primaryTitle: 'Corbett and Courtney Before the Kinetograph',
-  originalTitle: 'Corbett and Courtney Before the Kinetograph',
-  isAdult: 0,
-  startYear: 1894,
-  endYear: '\\N',
-  runtimeMinutes: 1,
-  genres: 'Short,Sport'
-});
+export const getMockMovie = (e2e: boolean = false) => {
+  const movie = {
+    _id: '5ff8ca0d500da388352dfc99',
+    tconst: 'tt0000007',
+    titleType: 'short',
+    primaryTitle: 'Corbett and Courtney Before the Kinetograph',
+    originalTitle: 'Corbett and Courtney Before the Kinetograph',
+    isAdult: 0,
+    startYear: 1894,
+    endYear: '\\N',
+    runtimeMinutes: 1,
+    genres: 'Short,Sport'
+  };
 
-export const getMockUpdatedMovie = () => ({
-  _id: new ObjectId('5ff8ca0d500da388352dfc99'),
-  tconst: 'tt0000007',
-  titleType: 'short',
-  primaryTitle: 'Corbett and Courtney Before the Kinetograph',
-  originalTitle: 'Corbett and Courtney Before the Kinetograph',
-  isAdult: 0,
-  startYear: 1894,
-  endYear: '\\N',
-  runtimeMinutes: 2,
-  genres: 'Short,Sport'
-});
+  if (!e2e) {
+    movie._id = new ObjectId(movie._id);
+  }
+
+  return movie;
+};
+
+export const getMockUpdatedMovie = (e2e: boolean = false) => {
+  const movie = {
+    _id: '5ff8ca0d500da388352dfc99',
+    tconst: 'tt0000007',
+    titleType: 'short',
+    primaryTitle: 'Corbett and Courtney Before the Kinetograph',
+    originalTitle: 'Corbett and Courtney Before the Kinetograph',
+    isAdult: 0,
+    startYear: 1894,
+    endYear: '\\N',
+    runtimeMinutes: 2,
+    genres: 'Short,Sport'
+  };
+
+  if (!e2e) {
+    movie._id = new ObjectId(movie._id);
+  }
+
+  return movie;
+};
 
 export const MockMovieRepository = {
   insertOne: jest.fn(() => getMockMovie()),

@@ -56,7 +56,7 @@ describe('Movies endpoint', () => {
             .expect(getMockUpdatedMovie(true))
         );
 
-        it('should remove the movie record and return null on DELETE request', () => client
+        it('should remove the movie record on DELETE request', () => client
             .delete('/movies/tt0000007')
             .expect(200)
         );

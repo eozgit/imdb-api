@@ -1,43 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { ObjectId } from 'mongodb';
 import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.service.spec';
 import { MockMovieRepositoryProvider } from '../movies/movies.mock.spec';
+import { getMockActor, getMockUpdatedActor, MockActorRepositoryProvider } from './actors.mock.spec';
 import { ActorsService } from './actors.service';
-import { Actor } from './entities/actor.entity';
-
-export const getMockActor = () => ({
-  _id: new ObjectId("5ff8cdd7e65563629d215c65"),
-  nconst: "nm0000011",
-  primaryName: "Gary Cooper",
-  birthYear: 1901,
-  deathYear: 1961,
-  primaryProfession: "actor,soundtrack,producer",
-  knownForTitles: "tt0027996,tt0035896,tt0044706,tt0034167"
-});
-
-export const getMockUpdatedActor = () => ({
-  _id: new ObjectId("5ff8cdd7e65563629d215c65"),
-  nconst: "nm0000011",
-  primaryName: "Gary Cooper",
-  birthYear: 1901,
-  deathYear: 1961,
-  primaryProfession: "actor",
-  knownForTitles: "tt0027996,tt0035896,tt0044706,tt0034167"
-});
-
-export const MockActorRepository = {
-  insertOne: jest.fn(() => getMockActor()),
-  find: jest.fn(() => [getMockActor()]),
-  findOneOrFail: jest.fn(() => getMockActor()),
-  save: jest.fn(() => ([getMockUpdatedActor()])),
-  deleteOne: jest.fn(() => null)
-};
-
-export const MockActorRepositoryProvider = {
-  provide: getRepositoryToken(Actor),
-  useValue: MockActorRepository,
-};
 
 describe('ActorsService', () => {
   let service: ActorsService;

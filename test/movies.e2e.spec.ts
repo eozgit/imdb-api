@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import { getMockMovie, getMockUpdatedMovie, MockMovieRepositoryProvider } from '../src/movies/movies.mock.spec';
 import { MoviesController } from '../src/movies/movies.controller';
 import { MoviesService } from '../src/movies/movies.service';
-import { MockActorRepositoryProvider } from '../src/actors/actors.service.spec';
+import { MockActorRepositoryProvider } from '../src/actors/actors.mock.spec';
 import { MockActorMovieRepositoryProvider } from '../src/actor-movies/actor-movies.service.spec';
 
 describe('Movies endpoint', () => {

@@ -3,7 +3,7 @@ import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.s
 import { MockMovieRepositoryProvider } from '../movies/movies.mock.spec';
 import { ActorsController } from './actors.controller';
 import { ActorsService } from './actors.service';
-import { getMockActor, getMockUpdatedActor, MockActorRepositoryProvider } from './actors.service.spec';
+import { getMockActor, getMockUpdatedActor, MockActorRepositoryProvider } from './actors.mock.spec';
 
 describe('ActorsController', () => {
   let controller: ActorsController;

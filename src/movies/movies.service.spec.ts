@@ -1,65 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { ObjectId } from 'mongodb';
 import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.service.spec';
 import { MockActorRepositoryProvider } from '../actors/actors.service.spec';
-import { Movie } from './entities/movie.entity';
+import { getMockMovie, getMockUpdatedMovie, MockMovieRepositoryProvider } from './movies.mock.spec';
 import { MoviesService } from './movies.service';
-
-export const getMockMovie = (e2e: boolean = false) => {
-  const movie = {
-    _id: '5ff8ca0d500da388352dfc99',
-    tconst: 'tt0000007',
-    titleType: 'short',
-    primaryTitle: 'Corbett and Courtney Before the Kinetograph',
-    originalTitle: 'Corbett and Courtney Before the Kinetograph',
-    isAdult: 0,
-    startYear: 1894,
-    endYear: '\\N',
-    runtimeMinutes: 1,
-    genres: 'Short,Sport'
-  };
-
-  if (!e2e) {
-    movie._id = new ObjectId(movie._id);
-  }
-
-  return movie;
-};
-
-export const getMockUpdatedMovie = (e2e: boolean = false) => {
-  const movie = {
-    _id: '5ff8ca0d500da388352dfc99',
-    tconst: 'tt0000007',
-    titleType: 'short',
-    primaryTitle: 'Corbett and Courtney Before the Kinetograph',
-    originalTitle: 'Corbett and Courtney Before the Kinetograph',
-    isAdult: 0,
-    startYear: 1894,
-    endYear: '\\N',
-    runtimeMinutes: 2,
-    genres: 'Short,Sport'
-  };
-
-  if (!e2e) {
-    movie._id = new ObjectId(movie._id);
-  }
-
-  return movie;
-};
-
-export const MockMovieRepository = {
-  insertOne: jest.fn(() => getMockMovie()),
-  find: jest.fn(() => [getMockMovie()]),
-  findOneOrFail: jest.fn(() => getMockMovie()),
-  save: jest.fn(() => ([getMockUpdatedMovie()])),
-  deleteOne: jest.fn(() => null)
-};
-
-export const MockMovieRepositoryProvider = {
-  provide: getRepositoryToken(Movie),
-  useValue: MockMovieRepository,
-};
 
 describe('MoviesService', () => {
   let service: MoviesService;

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { getMockMovie, MockMovieRepositoryProvider } from '../src/movies/movies.service.spec';
+import { getMockMovie, MockMovieRepositoryProvider } from '../src/movies/movies.mock.spec';
 import { MoviesController } from '../src/movies/movies.controller';
 import { MoviesService } from '../src/movies/movies.service';
 import { MockActorRepositoryProvider } from '../src/actors/actors.service.spec';

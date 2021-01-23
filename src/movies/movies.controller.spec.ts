@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.service.spec';
+import { MockActorMovieRepositoryProvider } from '../actor-movies/actor-movies.mock.spec';
 import { MockActorRepositoryProvider } from '../actors/actors.mock.spec';
 import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';

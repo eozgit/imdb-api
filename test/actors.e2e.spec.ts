@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { MockMovieRepositoryProvider } from '../src/movies/movies.mock.spec';
 import { getMockActor, getMockUpdatedActor, MockActorRepositoryProvider } from '../src/actors/actors.mock.spec';
-import { MockActorMovieRepositoryProvider } from '../src/actor-movies/actor-movies.service.spec';
+import { MockActorMovieRepositoryProvider } from '../src/actor-movies/actor-movies.mock.spec';
 import { ActorsService } from '../src/actors/actors.service';
 import { ActorsController } from '../src/actors/actors.controller';
 

@@ -5,7 +5,7 @@ import { getMockMovie, getMockUpdatedMovie, MockMovieRepositoryProvider } from '
 import { MoviesController } from '../src/movies/movies.controller';
 import { MoviesService } from '../src/movies/movies.service';
 import { MockActorRepositoryProvider } from '../src/actors/actors.mock.spec';
-import { MockActorMovieRepositoryProvider } from '../src/actor-movies/actor-movies.service.spec';
+import { MockActorMovieRepositoryProvider } from '../src/actor-movies/actor-movies.mock.spec';
 
 describe('Movies endpoint', () => {
     let app: INestApplication;

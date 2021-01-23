@@ -11,9 +11,9 @@ import { Actor } from './entities/actor.entity';
 @Injectable()
 export class ActorsService {
   constructor(
+    @InjectRepository(Movie) private moviesRepository: MongoRepository<Movie>,
     @InjectRepository(Actor) private actorsRepository: MongoRepository<Actor>,
-    @InjectRepository(ActorMovie) private actorsMoviesRepository: MongoRepository<ActorMovie>,
-    @InjectRepository(Movie) private moviesRepository: MongoRepository<Movie>
+    @InjectRepository(ActorMovie) private actorsMoviesRepository: MongoRepository<ActorMovie>
   ) { }
 
   create(createActorDto: CreateActorDto) {

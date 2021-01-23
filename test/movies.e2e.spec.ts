@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { getMockMovie, MockMovieRepositoryProvider } from '../src/movies/movies.mock.spec';
+import { getMockMovie, getMockUpdatedMovie, MockMovieRepositoryProvider } from '../src/movies/movies.mock.spec';
 import { MoviesController } from '../src/movies/movies.controller';
 import { MoviesService } from '../src/movies/movies.service';
 import { MockActorRepositoryProvider } from '../src/actors/actors.service.spec';
@@ -29,18 +29,36 @@ describe('Movies endpoint', () => {
         client = request(app.getHttpServer());
     });
 
-    it('should insert and return the movie record on POST request', (done) => client
+    it('should insert and return the movie record on POST request', () => client
         .post('/movies')
         .send(getMockMovie())
         .expect(201)
         .expect(getMockMovie(true))
-        .end(done)
     );
 
-    it('should retrieve and return matching movie records on GET request', (done) => client
+    it('should retrieve and return matching movie records on GET request', () => client
         .get('/movies?title=matrix&year=1999&genre=action')
         .expect(200)
         .expect([getMockMovie(true)])
-        .end(done)
     );
+
+    describe('with an id parameter', () => {
+        it('should retrieve and return a movie record on GET request', () => client
+            .get('/movies/tt0000007')
+            .expect(200)
+            .expect(getMockMovie(true))
+        );
+
+        it('should update the runtime and return updated values on PUT request', () => client
+            .put('/movies/tt0000007')
+            .send({ runtimeMinutes: 2 })
+            .expect(200)
+            .expect(getMockUpdatedMovie(true))
+        );
+
+        it('should remove the movie record and return null on DELETE request', () => client
+            .delete('/movies/tt0000007')
+            .expect(200)
+        );
+    });
 });

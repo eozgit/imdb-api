@@ -1,38 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { ObjectId } from 'mongodb';
-import { Rating } from './entities/rating.entity';
+import { getMockRating, getMockUpdatedRating, MockRatingRepositoryProvider } from './ratings.mock.spec';
 import { RatingsService } from './ratings.service';
-
-export const getMockRating = () => ({
-  _id: new ObjectId("5ff8c968ed3c3d8560f7b12c"),
-  tconst: "tt0000005",
-  averageRating: 6.2,
-  numVotes: 2188
-});
-
-export const getMockUpdatedRating = () => ({
-  _id: new ObjectId("5ff8c968ed3c3d8560f7b12c"),
-  tconst: "tt0000005",
-  averageRating: 6.3,
-  numVotes: 2189
-});
-
-export const MockRatingRepository = {
-  findOne: jest.fn(() => getMockRating()),
-  save: jest.fn(() => ([getMockUpdatedRating()]))
-};
 
 describe('RatingsService', () => {
   let service: RatingsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [RatingsService,
-        {
-          provide: getRepositoryToken(Rating),
-          useValue: MockRatingRepository,
-        }],
+      providers: [
+        RatingsService,
+        MockRatingRepositoryProvider
+      ],
     }).compile();
 
     service = module.get<RatingsService>(RatingsService);

@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Rating } from './entities/rating.entity';
 import { RatingsController } from './ratings.controller';
 import { RatingsService } from './ratings.service';
-import { getMockRating, getMockUpdatedRating, MockRatingRepository } from './ratings.service.spec';
+import { getMockRating, getMockUpdatedRating, MockRatingRepository } from './ratings.mock.spec';
 
 describe('RatingsController', () => {
   let controller: RatingsController;
